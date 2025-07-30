@@ -27,6 +27,7 @@ class Solution {
                 
             }
             // if(vis[adj.get(start).get(i)]&&adj.get(start).get(i)!=parent){
+
                 low[start]=Math.min(low[adj.get(start).get(i)],low[start]);
             // }
         } 
@@ -36,6 +37,6 @@ class Solution {
                     list.add(start);list.add(parent);
                     con.add(list);  
                 }
-                low[parent]=Math.min(low[parent],low[start]);
+                // low[parent]=Math.min(low[parent],low[start]);
     }
 }
