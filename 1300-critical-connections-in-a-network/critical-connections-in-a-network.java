@@ -15,28 +15,25 @@ class Solution {
         return con;
     }
 
-    void dfs(int start,boolean[] vis,int[] time,int[] low,List<List<Integer>> adj,int parent,List<List<Integer>> con){
+    void dfs(int start,boolean[] vis,int[] time,int[] low,List<List<Integer>> adj,int parent,               List<List<Integer>> con){
         vis[start]=true; 
         timer++;
         low[start]=timer;
         time[start]=timer;
         for(int i=0;i<adj.get(start).size();i++){
-            if(parent==adj.get(start).get(i))    continue;
+            if(adj.get(start).get(i)==parent)   continue;
             if(!vis[adj.get(start).get(i)]){
                 dfs(adj.get(start).get(i),vis,time,low,adj,start,con);
-                
-            }
-            // if(vis[adj.get(start).get(i)]&&adj.get(start).get(i)!=parent){
-
-                low[start]=Math.min(low[adj.get(start).get(i)],low[start]);
-            // }
-        } 
-                if(parent==-1)  return;
-                if(time[parent]<low[start]) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(start);list.add(parent);
-                    con.add(list);  
+                low[start]=Math.min(low[start],low[adj.get(start).get(i)]);
+                if(time[start]<low[adj.get(start).get(i)]){
+                    ArrayList<Integer> list = new ArrayList<>();
+                    list.add(start);
+                    list.add(adj.get(start).get(i));
+                    con.add(list);
                 }
-                // low[parent]=Math.min(low[parent],low[start]);
+            }
+            else    low[start]=Math.min(low[start],low[adj.get(start).get(i)]);
+        } 
+             
     }
 }
