@@ -1,48 +1,41 @@
-import java.util.*;
-
-public class Solution {
+class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        if (!wordList.contains(endWord)) return 0;
 
-        Set<String> remainingWords = new HashSet<>(wordList);
-        Set<String> currentWords = new HashSet<>();
-        currentWords.add(beginWord);
-        int stepCount = 1;
+        HashSet<String> wl = new HashSet<>(); // wl=wordList
+        for(String s:wordList)  wl.add(s);
 
-        while (!currentWords.isEmpty()) {
-            Set<String> nextWords = new HashSet<>();
+        if(!wl.contains(endWord))   return 0;
 
-            for (String word : currentWords) {
-                List<String> toRemove = new ArrayList<>();
+        char[] ch = new char[26];
+        for(int i=0;i<26;i++)   ch[i]=(char)('a'+i);
 
-                for (String candidate : remainingWords) {
-                    if (isOneLetterDifferent(word, candidate)) {
-                        if (candidate.equals(endWord)) {
-                            return stepCount + 1;
+        HashSet<String> vi = new HashSet<>();   // to check if word already included in the path or not
+
+        Queue<String> qu = new LinkedList<>();
+        qu.add(beginWord);
+        vi.add(beginWord);
+        int level=0;
+        while(!qu.isEmpty()){
+            int size = qu.size();
+            for(int i=0;i<size;i++){
+                String temp = qu.poll();
+                for(int p=0;p<temp.length();p++){
+                    for(int alpha=0;alpha<26;alpha++){
+                        StringBuilder tt = new StringBuilder(temp);
+                        tt.setCharAt(p,ch[alpha]);
+                        String check = tt.toString();
+                        if (check.equals(endWord)) return level + 2;
+                        if(wl.contains(check)&&!vi.contains(check)){
+                        System.out.println(tt);
+                            qu.add(check);
+                            vi.add(check);
                         }
-                        nextWords.add(candidate);
-                        toRemove.add(candidate);
                     }
                 }
-
-                for (String rem : toRemove) {
-                    remainingWords.remove(rem);
-                }
             }
-
-            currentWords = nextWords;
-            stepCount++;
+            level++;
         }
 
         return 0;
     }
-
-    private boolean isOneLetterDifferent(String a, String b) {
-        int diff = 0;
-        for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) != b.charAt(i)) diff++;
-            if (diff > 1) return false;
-        }
-        return diff == 1;
-    }
-}
+} 
