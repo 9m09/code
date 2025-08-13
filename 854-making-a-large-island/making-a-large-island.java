@@ -101,7 +101,8 @@ class Solution {
             }
         }
 
-        for (int cellNo = 0; cellNo < n * n; cellNo++) {
+        for (int cellNo = 0; cellNo < n * n; cellNo++) { // if there are compponents having bigger       
+                                                    // size and not been covered by converting zero to one
             size = Math.max(size, ds.size[ds.findUPar(cellNo)]);
         }
 
