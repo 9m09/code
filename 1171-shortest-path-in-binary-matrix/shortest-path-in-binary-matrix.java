@@ -6,8 +6,9 @@ class Solution {
 
         int[][] dis = new int[n][n];
         for (int[] row : dis) Arrays.fill(row, Integer.MAX_VALUE);
-        // boolean[][] vis = new boolean[n][n];
-        // vis[0][0] = true;
+
+        boolean[][] vis = new boolean[n][n];
+        vis[0][0] = true; // starting point is visited
         dis[0][0] = 1;
 
         Queue<int[]> queue = new LinkedList<>();
@@ -20,58 +21,58 @@ class Solution {
             int d = dis[i][j];
 
             // Down-Right
-            if (i + 1 < n && j + 1 < n && grid[i + 1][j + 1] == 0 && dis[i+1][j+1]>d+1) {
+            if (i + 1 < n && j + 1 < n && grid[i + 1][j + 1] == 0 && !vis[i + 1][j + 1]) {
                 dis[i + 1][j + 1] = d + 1;
-                // vis[i + 1][j + 1] = true;
+                vis[i + 1][j + 1] = true;
                 queue.add(new int[]{i + 1, j + 1});
             }
 
             // Down
-            if (i + 1 < n && grid[i + 1][j] == 0&& dis[i+1][j]>d+1 ) {
+            if (i + 1 < n && grid[i + 1][j] == 0 && !vis[i + 1][j]) {
                 dis[i + 1][j] = d + 1;
-                // vis[i + 1][j] = true;
+                vis[i + 1][j] = true;
                 queue.add(new int[]{i + 1, j});
             }
 
             // Right
-            if (j + 1 < n && grid[i][j + 1] == 0&& dis[i][j+1]>d+1) {
+            if (j + 1 < n && grid[i][j + 1] == 0 && !vis[i][j + 1]) {
                 dis[i][j + 1] = d + 1;
-                // vis[i][j + 1] = true;
+                vis[i][j + 1] = true;
                 queue.add(new int[]{i, j + 1});
             }
 
             // Up
-            if (i - 1 >= 0 && grid[i - 1][j] == 0 && dis[i-1][j]>d+1) {
+            if (i - 1 >= 0 && grid[i - 1][j] == 0 && !vis[i - 1][j]) {
                 dis[i - 1][j] = d + 1;
-                // vis[i - 1][j] = true;
+                vis[i - 1][j] = true;
                 queue.add(new int[]{i - 1, j});
             }
 
             // Left
-            if (j - 1 >= 0 && grid[i][j - 1] == 0 && dis[i][j - 1]>d+1) {
+            if (j - 1 >= 0 && grid[i][j - 1] == 0 && !vis[i][j - 1]) {
                 dis[i][j - 1] = d + 1;
-                // vis[i][j - 1] = true;
+                vis[i][j - 1] = true;
                 queue.add(new int[]{i, j - 1});
             }
 
             // Up-Left
-            if (i - 1 >= 0 && j - 1 >= 0 && grid[i - 1][j - 1] == 0 && dis[i - 1][j - 1]>d+1) {
+            if (i - 1 >= 0 && j - 1 >= 0 && grid[i - 1][j - 1] == 0 && !vis[i - 1][j - 1]) {
                 dis[i - 1][j - 1] = d + 1;
-                // vis[i - 1][j - 1] = true;
+                vis[i - 1][j - 1] = true;
                 queue.add(new int[]{i - 1, j - 1});
             }
 
             // Up-Right
-            if (i - 1 >= 0 && j + 1 < n && grid[i - 1][j + 1] == 0 && dis[i - 1][j + 1]>d+1) {
+            if (i - 1 >= 0 && j + 1 < n && grid[i - 1][j + 1] == 0 && !vis[i - 1][j + 1]) {
                 dis[i - 1][j + 1] = d + 1;
-                // vis[i - 1][j + 1] = true;
+                vis[i - 1][j + 1] = true;
                 queue.add(new int[]{i - 1, j + 1});
             }
 
             // Down-Left
-            if (i + 1 < n && j - 1 >= 0 && grid[i + 1][j - 1] == 0 && dis[i + 1][j - 1]>d+1) {
+            if (i + 1 < n && j - 1 >= 0 && grid[i + 1][j - 1] == 0 && !vis[i + 1][j - 1]) {
                 dis[i + 1][j - 1] = d + 1;
-                // vis[i + 1][j - 1] = true;
+                vis[i + 1][j - 1] = true;
                 queue.add(new int[]{i + 1, j - 1});
             }
         }
