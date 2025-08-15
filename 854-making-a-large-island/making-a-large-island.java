@@ -84,11 +84,12 @@ class Solution {
                 int dr[] = { -1, 0, 1, 0};
                 int dc[] = {0, -1, 0, 1};
                 HashSet<Integer> components = new HashSet<>();  // use hashset to avoid adding same node 
+                // by adding ultimate parents of neighbouring node so to avoid adding node of same group
                 for (int ind = 0; ind < 4; ind++) {
                     int newr = row + dr[ind];
                     int newc = col + dc[ind];
                     if (isvalid(newr, newc, n)) {
-                        if (grid[newr][newc] == 1) {
+                        if (grid[newr][newc] == 1&&!components.contains(newr*n+newc)) {
                             components.add(ds.findUPar(newr * n + newc));
                         }
                     }
