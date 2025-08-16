@@ -52,7 +52,7 @@ class Disjoint{
 class Solution {
     public int removeStones(int[][] stones) {
         Disjoint r = new Disjoint(stones.length);
-        Disjoint c = new Disjoint(stones.length);
+        // Disjoint c = new Disjoint(stones.length);
         HashMap<Integer,Integer> rmap = new HashMap<>();
         HashMap<Integer,Integer> cmap = new HashMap<>();
 
@@ -61,18 +61,22 @@ class Solution {
         for(int i=1;i<stones.length;i++){
             if(rmap.containsKey(stones[i][0])&&cmap.containsKey(stones[i][1])){
                 int pr=r.fup(rmap.get(stones[i][0]));
-                int pc=c.fup(cmap.get(stones[i][1]));
-                r.ubr(pr,pc);c.ubr(pr,pc);
-                r.ubr(pr,i);c.ubr(pr,i);
+                int pc=r.fup(cmap.get(stones[i][1]));
+                r.ubr(pr,pc);
+                // c.ubr(pr,pc);
+                r.ubr(pr,i);
+                // c.ubr(pr,i);
             }
             else if(rmap.containsKey(stones[i][0])){
                 int pr=r.fup(rmap.get(stones[i][0]));
-                r.ubr(pr,i);c.ubr(pr,i);
+                r.ubr(pr,i);
+                // c.ubr(pr,i);
                 cmap.put(stones[i][1],i);
             }
             else if(cmap.containsKey(stones[i][1])){
-                int pc=c.fup(cmap.get(stones[i][1]));
-                r.ubr(pc,i);c.ubr(pc,i);
+                int pc=r.fup(cmap.get(stones[i][1]));
+                r.ubr(pc,i);
+                // c.ubr(pc,i);
                 rmap.put(stones[i][0],i);
             }
             else{
