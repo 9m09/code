@@ -1,46 +1,38 @@
 class Solution {
-   HashMap<Integer, Integer> mp = new HashMap<>();
-    int t[][] = new int[2001][2001];
-    int n;
-    boolean solve(int[] stones, int curr_stone_index, int prevJump) {
-        if(curr_stone_index == n-1)
-            return true;
-        
-        boolean result = false;
-        
-        if(t[curr_stone_index][prevJump] != -1)
-            return t[curr_stone_index][prevJump] == 1;
-        
-        for(int nextJump = prevJump-1; nextJump <= prevJump+1; nextJump++) {
-            
-            if(nextJump > 0) {
-                int next_stone = stones[curr_stone_index] + nextJump;
-                
-                if(mp.containsKey(next_stone)) {
-                    result = result || solve(stones, mp.get(next_stone), nextJump);
+   
+    public boolean canCross(int[] stones) {
+        if (stones[1] != 1) return false;
+        if(stones.length==2)    return true;    
+        Set<Integer> stoneSet = new HashSet<>();
+        for (int stone : stones) {
+            stoneSet.add(stone);
+        }
+        int lastStone = stones[stones.length - 1];
+
+        Queue<int[]> queue = new LinkedList<>( );
+        queue.add(new int[]{1, 1});
+        Set<String> vi = new HashSet<>();
+        vi.add("1,1");
+        while (!queue.isEmpty()) {
+            int[] curr = queue.poll();
+            int pos = curr[0];
+            int jump = curr[1];
+
+            for (int step = jump - 1; step <= jump + 1; step++) {
+                if (step ==0) continue; 
+                int nextPos = pos + step;
+
+                if (nextPos == lastStone) return true;
+
+                if (stoneSet.contains(nextPos)) {
+                    String state = nextPos + "," + step;
+                    if(!vi.contains(state)){
+                        vi.add(state);
+                        queue.add(new int[]{nextPos, step});
+                    }
                 }
             }
-            
         }
-        
-        t[curr_stone_index][prevJump] = (result ? 1 :0);
-        return result;
-        
-    }
-    
-    public boolean canCross(int[] stones) {
-        n = stones.length;
-        if(stones[1] != 1)
-            return false;
-        
-        for (int i = 0 ; i < stones.length; i++) {
-            mp.put(stones[i], i);
-        }
-        
-        for (int i = 0; i < 2000; i++) {
-            Arrays.fill(t[i], -1);
-        }
-        
-        return solve(stones, 0, 0);
+        return false;
     }
 }
