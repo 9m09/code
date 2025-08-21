@@ -41,24 +41,42 @@
 //     }
 // }
 
-class Solution {
-    public int rob(int[] nums) {
-        int n = nums.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp, -1);
-        int re= helper(nums, n-1, dp);
-        for(int i=0;i<n;i++)
-        System.out.println(dp[i]);
-        return re;
-    }
+// class Solution {
+//     public int rob(int[] nums) {
+//         int n = nums.length;
+//         int[] dp = new int[n];
+//         Arrays.fill(dp, -1);
+//         int re= helper(nums, n-1, dp);
+//         for(int i=0;i<n;i++)
+//         System.out.println(dp[i]);
+//         return re;
+//     }
 
-    int helper(int[] nums, int i, int[] dp) {
-        if (i < 0) return 0;
-        if (dp[i] != -1) return dp[i];
+//     int helper(int[] nums, int i, int[] dp) {
+//         if (i==0) return nums[i];
+//         if(i<0) return 0;
+//         if (dp[i] != -1) return dp[i];
 
-        int non = nums[i] + helper(nums, i - 2, dp);
-        int adj = helper(nums, i - 1, dp);
+//         int non = nums[i] + helper(nums, i - 2, dp);
+//         int adj = helper(nums, i - 1, dp);
 
-        return dp[i] = Math.max(non,adj);
+//         return dp[i] = Math.max(non,adj);
+//     }
+// }
+class Solution{
+    int rob(int[] nums){
+        int n=nums.length;
+        if(n==1)    return nums[0];
+        int[] dp= new int[n];
+        Arrays.fill(dp,-1);
+        dp[0]=nums[0];
+
+        dp[1]=Math.max(nums[1],nums[0]);
+        for(int i=2;i<n;i++){
+            int take=dp[i-2]+nums[i];
+            int not=dp[i-1];
+            dp[i]=Math.max(not,take);
+        }
+        return dp[n-1];
     }
 }
