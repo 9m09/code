@@ -56,9 +56,9 @@ class Solution {
         if (i < 0) return 0;
         if (dp[i] != -1) return dp[i];
 
-        int rob = nums[i] + helper(nums, i - 2, dp);
-        int skip = helper(nums, i - 1, dp);
+        int non = nums[i] + helper(nums, i - 2, dp);
+        int adj = helper(nums, i - 1, dp);
 
-        return dp[i] = Math.max(rob, skip);
+        return dp[i] = Math.max(non,adj);
     }
 }
