@@ -1,38 +1,20 @@
-import java.util.*;
-
 class Solution {
     public int minPathSum(int[][] grid) {
-        int m = grid.length, n = grid[0].length;
+        int[][] dp = new int[grid.length][grid[0].length];
+        for(int[] dpp:dp)
+        Arrays.fill(dpp,-1);
+        return help(dp,grid,grid.length-1,grid[0].length-1);        
+    }
+    int help(int[][] dp,int[][] grid,int i,int j){
+        if(i==0&&j==0)  return dp[0][0]=grid[0][0];
+        if(i<0||j<0)    return Integer.MAX_VALUE;
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        pq.add(new int[]{grid[0][0], 0, 0});
+        if(dp[i][j]!=-1)    return dp[i][j];
 
-        int[][] dist = new int[m][n];
-        for (int[] row : dist) {
-            Arrays.fill(row, Integer.MAX_VALUE);
-        }
-        dist[0][0] = grid[0][0];
+        int up=help(dp,grid,i-1,j);
+        int left=help(dp,grid,i,j-1);
 
-        int[][] dirs = {{0, 1}, {1, 0}};
+        return dp[i][j]=grid[i][j]+Math.min(up,left);
 
-        while (!pq.isEmpty()) {
-            int[] curr = pq.poll();
-            int cost = curr[0], r = curr[1], c = curr[2];
-
-            if (r == m - 1 && c == n - 1) return cost;
-
-            for (int[] d : dirs) {
-                int nr = r + d[0], nc = c + d[1];
-                if (nr < m && nc < n) {
-                    int newCost = cost + grid[nr][nc];
-                    if (newCost < dist[nr][nc]) {
-                        dist[nr][nc] = newCost;
-                        pq.add(new int[]{newCost, nr, nc});
-                    }
-                }
-            }
-        }
-
-        return -1; 
     }
 }
