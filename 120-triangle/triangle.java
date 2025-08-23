@@ -11,7 +11,7 @@ class Solution {
                 int up=Integer.MAX_VALUE;
                 int di=Integer.MAX_VALUE;
                 if(j<dp[i-1].length)    up=dp[i-1][j]; 
-                if(j!=0)    di=dp[i-1][j-1];
+                if(j!=0&&dp[i-1].length>=j)    di=dp[i-1][j-1];
                 int min=Math.min(up,di);
                 dp[i][j]=(min==Integer.MAX_VALUE?0:min)+tr.get(i).get(j);
             }
