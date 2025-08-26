@@ -10,6 +10,7 @@ class Solution {
             if (curRow == 0 || curRow == numRows - 1) goingDown = !goingDown;
             curRow += goingDown ? 1 : -1;
         }
+        //
         StringBuilder result = new StringBuilder();
         for (StringBuilder row : rows) result.append(row);
         return result.toString();
