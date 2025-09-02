@@ -1,23 +1,28 @@
 class Solution {
-    public int uniquePathsWithObstacles(int[][] ob) {
-        int m=ob.length;
-        int n=ob[0].length;
-        if(ob[0][0]==1||ob[m-1][n-1]==1)    return 0;
-        int[][] dp = new int[m][n];
+    public int uniquePathsWithObstacles(int[][] maze) {
+        int n = maze.length;
+        int m = maze[0].length;
+        if(maze[0][0]==1||maze[n-1][m-1]==1)    return 0;
 
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(i==0&&j==0)  dp[0][0]=1;
-                else{
-                    int up=0;
-                    int left=0;
-                    if(i!=0&&ob[i][j]!=1)   up=dp[i-1][j];
-                    if(j!=0&&ob[i][j]!=1)   left=dp[i][j-1];
-                    dp[i][j]=left+up;
-                }
-            }
-        }
+        int dp[][] = new int[n][m];
+        
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        
+        return mazeObstaclesUtil(n - 1, m - 1, maze, dp);
 
-        return dp[m-1][n-1];
+    }
+
+     static int mazeObstaclesUtil(int i, int j, int[][] maze, int[][] dp) {
+
+        if (i == 0 && j == 0)   return 1;
+        if (i < 0 || j < 0) return 0;
+        if (maze[i][j] == 1)    return 0;
+        if (dp[i][j] != -1) return dp[i][j];
+
+        int up = mazeObstaclesUtil(i - 1, j, maze, dp);
+        int left = mazeObstaclesUtil(i, j - 1, maze, dp);
+
+        return dp[i][j] = up + left;
     }
 }
