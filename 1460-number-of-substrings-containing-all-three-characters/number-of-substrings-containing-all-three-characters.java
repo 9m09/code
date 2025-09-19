@@ -1,18 +1,18 @@
 class Solution {
     public int numberOfSubstrings(String s) {
-        int count=0;
+        int n = s.length();
+        int[] last = {-1, -1, -1}; 
+        
+        int count = 0;
 
-        HashMap<Character,Integer> map = new HashMap<>();
+        for (int r = 0; r < n; r++) {
+            last[s.charAt(r) - 'a'] = r;
 
-        for(int r=0;r<s.length();r++){
-            map.put(s.charAt(r),r);
-            if(map.size()==3){
-                int l=Math.min( Math.min(map.get('a'),map.get('b')),map.get('c') );
-                System.out.println(l+":"+r);
-                count=count+l+1;
+            if (last[0] != -1 && last[1] != -1 && last[2] != -1) {
+                int l = Math.min(last[0], Math.min(last[1], last[2]));
+                count += l + 1; 
             }
         }
-
-        return count;    
+        return count;
     }
 }
