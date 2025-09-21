@@ -48,31 +48,36 @@ public class Codec {
     //     }
     //     return node;
     // }
-    public TreeNode deserialize(String data) {
+   public TreeNode deserialize(String data) {
     if (data == null || data.isEmpty()) return null;
 
     String[] arr = data.split(",");
     int n = arr.length;
 
-    TreeNode[] nodes = new TreeNode[n];
+    TreeNode root = new TreeNode(Integer.valueOf(arr[0]));
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
 
-    for (int i = 0; i < n; i++) {
+    int i = 1;
+    while (!q.isEmpty() && i < n) {
+        TreeNode curr = q.poll();
+
         if (!arr[i].equals("#")) {
-            nodes[i] = new TreeNode(Integer.parseInt(arr[i]));
+            curr.left = new TreeNode(Integer.valueOf(arr[i]));
+            q.add(curr.left);
         }
+        i++;
+
+        if (i < n && !arr[i].equals("#")) {
+            curr.right = new TreeNode(Integer.valueOf(arr[i]));
+            q.add(curr.right);
+        }
+        i++;
     }
 
-    int j = 1; 
-    for (int i = 0; i < n && j < n; i++) {
-        if (nodes[i] != null) {
-            // if (j < n)
-             nodes[i].left = nodes[j++];
-            if (j < n) nodes[i].right = nodes[j++];
-        }
-    }
-
-    return nodes[0]; 
+    return root;
 }
+
 }
 
 // Your Codec object will be instantiated and called as such:
