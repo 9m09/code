@@ -5,7 +5,7 @@ class Solution {
         int r= help(t1, t1.length()-1, t2, t2.length()-1,dp); 
         int s=t1.length()<t2.length()?t1.length():t2.length();
         int l=t1.length()>t2.length()?t1.length():t2.length();  
-        if(s==r)    return l-r;
+        // if(s==r)    return l-r;
         return l+s-(2*r); 
     }
     int help(String t1, int i1, String t2, int i2,int[][] dp){
