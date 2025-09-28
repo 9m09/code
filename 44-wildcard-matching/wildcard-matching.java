@@ -30,9 +30,9 @@ class Solution {
             //             break;
             //         }
             //     }
-                boolean r1= help(s,is,p,ip+1,dp);
-                boolean r2= help(s,is+1,p,ip,dp);
-                return dp[is][ip]=r1||r2;
+            boolean r1= help(s,is,p,ip+1,dp);   //take empty char
+            boolean r2= help(s,is+1,p,ip,dp);   // take non-empty char
+            return dp[is][ip]=r1||r2;
             
             // else    return true;
         }   
