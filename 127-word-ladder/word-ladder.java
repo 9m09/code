@@ -14,7 +14,7 @@ class Solution {
         Queue<String> qu = new LinkedList<>();
         qu.add(beginWord);
         vi.add(beginWord);
-        int level=0;
+        int level=1;
         while(!qu.isEmpty()){
             int size = qu.size();
             for(int i=0;i<size;i++){
@@ -24,7 +24,7 @@ class Solution {
                         StringBuilder tt = new StringBuilder(temp);
                         tt.setCharAt(p,ch[alpha]);
                         String check = tt.toString();
-                        if (check.equals(endWord)) return level + 2;
+                        if (check.equals(endWord)) return level + 1;
                         if(wl.contains(check)&&!vi.contains(check)){
                         System.out.println(tt);
                             qu.add(check);
