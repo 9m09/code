@@ -18,15 +18,19 @@ class Solution {
                 q.add(i);
                 odd++;
             }  
-            while(odd>k){
-                if(nums[l]%2!=0)    {
-                    q.poll();
-                    odd--;
-                }
-                l++;
+            // while(odd>k){
+            //     if(nums[l]%2!=0)    {
+            //         q.poll();
+            //         odd--;
+            //     }
+            //     l++;
+            // }
+            if(odd>k){
+                odd--;
+                l=q.peek()+1;
+                q.poll();
             }
             if(odd==k)  count=count+q.peek()-l+1;
-            
         }
 
         
