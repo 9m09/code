@@ -12,7 +12,7 @@ class Solution {
             return;
         }
         if(index==nums.length)  return;
-        if(sum+nums[index]<=trg&&tl.size()<=size){
+        if(sum+nums[index]<=trg&&tl.size()<size){
             tl.add(nums[index]);
             sub(nums,index+1,trg,sum+nums[index],res,tl,size);
             tl.remove(tl.size()-1);
